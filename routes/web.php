@@ -28,12 +28,20 @@ Route::get('/', function () {
 
 // Auth
 
-Route::get('login', [AuthenticatedSessionController::class, 'create'])
+Route::get('login', [AuthenticatedSessionController::class, 'login'])
     ->name('login')
     ->middleware('guest');
 
-Route::post('login', [AuthenticatedSessionController::class, 'store'])
+Route::post('login', [AuthenticatedSessionController::class, 'storeLogin'])
     ->name('login.store')
+    ->middleware('guest');
+
+Route::get('register', [AuthenticatedSessionController::class, 'register'])
+    ->name('register')
+    ->middleware('guest');
+
+Route::post('register', [AuthenticatedSessionController::class, 'storeRegister'])
+    ->name('register.store')
     ->middleware('guest');
 
 Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])

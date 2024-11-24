@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Providers\AppServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): Response
+    public function login(): Response
     {
         return Inertia::render('Auth/Login');
     }
@@ -24,13 +25,33 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function storeLogin(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
         return redirect()->intended(AppServiceProvider::HOME);
+    }
+
+    /**
+     * Display the register view.
+     */
+    public function register(): Response
+    {
+        return Inertia::render('Auth/Register');
+    }
+
+    /**
+     * Handle an incoming register authentication request.
+     */
+    public function storeRegister(RegisterRequest $request)
+    {
+        $request->register();
+
+        $request->session()->regenerate();
+
+        return Inertia::location(route('dashboard'));
     }
 
     /**
