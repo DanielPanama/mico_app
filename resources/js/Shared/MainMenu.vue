@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-4">
-      <Link class="group flex items-center py-3" href="/">
+      <Link class="group flex items-center py-3" href="/dashboard">
         <icon name="dashboard" class="mr-2 w-4 h-4" :class="isUrl('') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
         <div :class="isUrl('') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Dashboard</div>
       </Link>

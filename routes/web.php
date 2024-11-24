@@ -20,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Landing
+Route::get('/', function () {
+    return view('landing');
+})->name('landing');
+
+
 // Auth
 
 Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -33,9 +39,9 @@ Route::post('login', [AuthenticatedSessionController::class, 'store'])
 Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
-// Dashboard
+// Dashboard (Panel del Alumno)
 
-Route::get('/', [DashboardController::class, 'index'])
+Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard')
     ->middleware('auth');
 
