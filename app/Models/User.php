@@ -60,6 +60,20 @@ class User extends Authenticatable
         return $this->belongsTo(School::class);
     }
 
+    //Un usuario tiene muchos grupos
+
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+
+    // Un usuario tiene muchas actividades a través de los grupos
+    public function activities()
+    {
+        return $this->hasManyThrough(Activity::class, Group::class);
+    }
+
+
     public function getNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
@@ -72,7 +86,7 @@ class User extends Authenticatable
 
     public function isDemoUser()
     {
-        return $this->email === 'johndoe@example.com';
+        return $this->email === 'juanito@example.com';
     }
 
     public function scopeOrderByName($query)

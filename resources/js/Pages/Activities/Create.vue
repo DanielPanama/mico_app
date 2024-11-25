@@ -1,14 +1,19 @@
 <template>
   <div>
-    <Head title="Create Organization" />
+    <Head title="Create Activity" />
     <h1 class="mb-8 text-3xl font-bold">
-      <Link class="text-indigo-400 hover:text-indigo-600" href="/organizations">Organizations</Link>
+      <Link class="text-indigo-400 hover:text-indigo-600" href="/activities">Activities</Link>
       <span class="text-indigo-400 font-medium">/</span> Create
     </h1>
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="store">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-          <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full lg:w-1/2" label="Name" />
+          <text-input v-model="form.first_name" :error="form.errors.first_name" class="pb-8 pr-6 w-full lg:w-1/2" label="First name" />
+          <text-input v-model="form.last_name" :error="form.errors.last_name" class="pb-8 pr-6 w-full lg:w-1/2" label="Last name" />
+          <select-input v-model="form.group_id" :error="form.errors.group_id" class="pb-8 pr-6 w-full lg:w-1/2" label="Group">
+            <option :value="null" />
+            <option v-for="group in groups" :key="group.id" :value="group.id">{{ group.name }}</option>
+          </select-input>
           <text-input v-model="form.email" :error="form.errors.email" class="pb-8 pr-6 w-full lg:w-1/2" label="Email" />
           <text-input v-model="form.phone" :error="form.errors.phone" class="pb-8 pr-6 w-full lg:w-1/2" label="Phone" />
           <text-input v-model="form.address" :error="form.errors.address" class="pb-8 pr-6 w-full lg:w-1/2" label="Address" />
@@ -22,7 +27,7 @@
           <text-input v-model="form.postal_code" :error="form.errors.postal_code" class="pb-8 pr-6 w-full lg:w-1/2" label="Postal code" />
         </div>
         <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
-          <loading-button :loading="form.processing" class="btn-indigo" type="submit">Create Organization</loading-button>
+          <loading-button :loading="form.processing" class="btn-indigo" type="submit">Create Activity</loading-button>
         </div>
       </form>
     </div>
@@ -45,24 +50,29 @@ export default {
     TextInput,
   },
   layout: Layout,
+  props: {
+    groups: Array,
+  },
   remember: 'form',
   data() {
     return {
       form: this.$inertia.form({
-        name: null,
-        email: null,
-        phone: null,
-        address: null,
-        city: null,
-        region: null,
-        country: null,
-        postal_code: null,
+        first_name: '',
+        last_name: '',
+        group_id: null,
+        email: '',
+        phone: '',
+        address: '',
+        city: '',
+        region: '',
+        country: '',
+        postal_code: '',
       }),
     }
   },
   methods: {
     store() {
-      this.form.post('/organizations')
+      this.form.post('/activities')
     },
   },
 }

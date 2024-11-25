@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
-class OrganizationsTest extends TestCase
+class GroupsTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -20,11 +20,11 @@ class OrganizationsTest extends TestCase
             'account_id' => Account::create(['name' => 'Acme Corporation'])->id,
             'first_name' => 'John',
             'last_name' => 'Doe',
-            'email' => 'johndoe@example.com',
+            'email' => 'juanito@example.com',
             'owner' => true,
         ]);
 
-        $this->user->account->organizations()->createMany([
+        $this->user->account->groups()->createMany([
             [
                 'name' => 'Apple',
                 'email' => 'info@apple.com',
@@ -47,21 +47,21 @@ class OrganizationsTest extends TestCase
         ]);
     }
 
-    public function test_can_view_organizations(): void
+    public function test_can_view_groups(): void
     {
         $this->actingAs($this->user)
-            ->get('/organizations')
+            ->get('/groups')
             ->assertInertia(fn (Assert $assert) => $assert
-                ->component('Organizations/Index')
-                ->has('organizations.data', 2)
-                ->has('organizations.data.0', fn (Assert $assert) => $assert
+                ->component('Groups/Index')
+                ->has('groups.data', 2)
+                ->has('groups.data.0', fn (Assert $assert) => $assert
                     ->has('id')
                     ->where('name', 'Apple')
                     ->where('phone', '647-943-4400')
                     ->where('city', 'Toronto')
                     ->where('deleted_at', null)
                 )
-                ->has('organizations.data.1', fn (Assert $assert) => $assert
+                ->has('groups.data.1', fn (Assert $assert) => $assert
                     ->has('id')
                     ->where('name', 'Microsoft')
                     ->where('phone', '877-568-2495')
@@ -71,15 +71,15 @@ class OrganizationsTest extends TestCase
             );
     }
 
-    public function test_can_search_for_organizations(): void
+    public function test_can_search_for_groups(): void
     {
         $this->actingAs($this->user)
-            ->get('/organizations?search=Apple')
+            ->get('/groups?search=Apple')
             ->assertInertia(fn (Assert $assert) => $assert
-                ->component('Organizations/Index')
+                ->component('Groups/Index')
                 ->where('filters.search', 'Apple')
-                ->has('organizations.data', 1)
-                ->has('organizations.data.0', fn (Assert $assert) => $assert
+                ->has('groups.data', 1)
+                ->has('groups.data.0', fn (Assert $assert) => $assert
                     ->has('id')
                     ->where('name', 'Apple')
                     ->where('phone', '647-943-4400')
@@ -89,30 +89,30 @@ class OrganizationsTest extends TestCase
             );
     }
 
-    public function test_cannot_view_deleted_organizations(): void
+    public function test_cannot_view_deleted_groups(): void
     {
-        $this->user->account->organizations()->firstWhere('name', 'Microsoft')->delete();
+        $this->user->account->groups()->firstWhere('name', 'Microsoft')->delete();
 
         $this->actingAs($this->user)
-            ->get('/organizations')
+            ->get('/groups')
             ->assertInertia(fn (Assert $assert) => $assert
-                ->component('Organizations/Index')
-                ->has('organizations.data', 1)
-                ->where('organizations.data.0.name', 'Apple')
+                ->component('Groups/Index')
+                ->has('groups.data', 1)
+                ->where('groups.data.0.name', 'Apple')
             );
     }
 
-    public function test_can_filter_to_view_deleted_organizations(): void
+    public function test_can_filter_to_view_deleted_groups(): void
     {
-        $this->user->account->organizations()->firstWhere('name', 'Microsoft')->delete();
+        $this->user->account->groups()->firstWhere('name', 'Microsoft')->delete();
 
         $this->actingAs($this->user)
-            ->get('/organizations?trashed=with')
+            ->get('/groups?trashed=with')
             ->assertInertia(fn (Assert $assert) => $assert
-                ->component('Organizations/Index')
-                ->has('organizations.data', 2)
-                ->where('organizations.data.0.name', 'Apple')
-                ->where('organizations.data.1.name', 'Microsoft')
+                ->component('Groups/Index')
+                ->has('groups.data', 2)
+                ->where('groups.data.0.name', 'Apple')
+                ->where('groups.data.1.name', 'Microsoft')
             );
     }
 }

@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\School;
-use App\Models\Contact;
-use App\Models\Organization;
+use App\Models\Activity;
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -17,25 +17,17 @@ class DatabaseSeeder extends Seeder
     {
         $school = School::create(['name' => 'CBTIS 190']);
         School::create(['name' => 'CBTIS 79']);
+        School::create(['name' => 'CBTIS 124']);
+        School::create(['name' => 'CBTIS 268']);
+        School::create(['name' => 'CETIS 15']);
 
         User::factory()->create([
             'school_id' => $school->id,
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'email' => 'johndoe@example.com',
+            'first_name' => 'Juanito',
+            'last_name' => 'Pérez',
+            'email' => 'juanito@example.com',
             'password' => 'secret',
             'owner' => true,
         ]);
-
-        User::factory(5)->create(['school_id' => $school->id]);
-
-        $organizations = Organization::factory(100)
-            ->create(['school_id' => $school->id]);
-
-        Contact::factory(100)
-            ->create(['school_id' => $school->id])
-            ->each(function ($contact) use ($organizations) {
-                $contact->update(['organization_id' => $organizations->random()->id]);
-            });
     }
 }

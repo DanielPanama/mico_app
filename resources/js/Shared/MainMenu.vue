@@ -2,20 +2,23 @@
   <div>
     <div class="mb-4">
       <Link class="group flex items-center py-3" href="/dashboard">
-        <icon name="dashboard" class="mr-2 w-4 h-4" :class="isUrl('') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Dashboard</div>
+      <icon name="dashboard" class="mr-2 w-4 h-4"
+        :class="isUrl('') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+      <div :class="isUrl('') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Dashboard</div>
       </Link>
     </div>
     <div class="mb-4">
-      <Link class="group flex items-center py-3" href="/organizations">
-        <icon name="office" class="mr-2 w-4 h-4" :class="isUrl('organizations') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('organizations') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Grupos</div>
+      <Link class="group flex items-center py-3" href="/groups">
+      <icon name="office" class="mr-2 w-4 h-4"
+        :class="isUrl('groups') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+      <div :class="isUrl('groups') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Grupos</div>
       </Link>
     </div>
     <div class="mb-4">
-      <Link class="group flex items-center py-3" href="/contacts">
-        <icon name="users" class="mr-2 w-4 h-4" :class="isUrl('contacts') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('contacts') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Actividades</div>
+      <Link class="group flex items-center py-3" href="/activities">
+      <icon name="users" class="mr-2 w-4 h-4"
+        :class="isUrl('activities') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+      <div :class="isUrl('activities') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Actividades</div>
       </Link>
     </div>
   </div>

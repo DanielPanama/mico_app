@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
-use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -83,64 +83,64 @@ Route::put('users/{user}/restore', [UsersController::class, 'restore'])
     ->name('users.restore')
     ->middleware('auth');
 
-// Organizations
+// Grupos
 
-Route::get('organizations', [OrganizationsController::class, 'index'])
-    ->name('organizations')
+Route::get('groups', [GroupsController::class, 'index'])
+    ->name('groups')
     ->middleware('auth');
 
-Route::get('organizations/create', [OrganizationsController::class, 'create'])
-    ->name('organizations.create')
+Route::get('groups/create', [GroupsController::class, 'create'])
+    ->name('groups.create')
     ->middleware('auth');
 
-Route::post('organizations', [OrganizationsController::class, 'store'])
-    ->name('organizations.store')
+Route::post('groups', [GroupsController::class, 'store'])
+    ->name('groups.store')
     ->middleware('auth');
 
-Route::get('organizations/{organization}/edit', [OrganizationsController::class, 'edit'])
-    ->name('organizations.edit')
+Route::get('groups/{group}/edit', [GroupsController::class, 'edit'])
+    ->name('groups.edit')
     ->middleware('auth');
 
-Route::put('organizations/{organization}', [OrganizationsController::class, 'update'])
-    ->name('organizations.update')
+Route::put('groups/{group}', [GroupsController::class, 'update'])
+    ->name('groups.update')
     ->middleware('auth');
 
-Route::delete('organizations/{organization}', [OrganizationsController::class, 'destroy'])
-    ->name('organizations.destroy')
+Route::delete('groups/{group}', [GroupsController::class, 'destroy'])
+    ->name('groups.destroy')
     ->middleware('auth');
 
-Route::put('organizations/{organization}/restore', [OrganizationsController::class, 'restore'])
-    ->name('organizations.restore')
+Route::put('groups/{group}/restore', [GroupsController::class, 'restore'])
+    ->name('groups.restore')
     ->middleware('auth');
 
-// Contacts
+// Actividades
 
-Route::get('contacts', [ContactsController::class, 'index'])
-    ->name('contacts')
+Route::get('activities', [ActivitiesController::class, 'index'])
+    ->name('activities')
     ->middleware('auth');
 
-Route::get('contacts/create', [ContactsController::class, 'create'])
-    ->name('contacts.create')
+Route::get('activities/create', [ActivitiesController::class, 'create'])
+    ->name('activities.create')
     ->middleware('auth');
 
-Route::post('contacts', [ContactsController::class, 'store'])
-    ->name('contacts.store')
+Route::post('activities', [ActivitiesController::class, 'store'])
+    ->name('activities.store')
     ->middleware('auth');
 
-Route::get('contacts/{contact}/edit', [ContactsController::class, 'edit'])
-    ->name('contacts.edit')
+Route::get('activities/{activity}/edit', [ActivitiesController::class, 'edit'])
+    ->name('activities.edit')
     ->middleware('auth');
 
-Route::put('contacts/{contact}', [ContactsController::class, 'update'])
-    ->name('contacts.update')
+Route::put('activities/{activity}', [ActivitiesController::class, 'update'])
+    ->name('activities.update')
     ->middleware('auth');
 
-Route::delete('contacts/{contact}', [ContactsController::class, 'destroy'])
-    ->name('contacts.destroy')
+Route::delete('activities/{activity}', [ActivitiesController::class, 'destroy'])
+    ->name('activities.destroy')
     ->middleware('auth');
 
-Route::put('contacts/{contact}/restore', [ContactsController::class, 'restore'])
-    ->name('contacts.restore')
+Route::put('activities/{activity}/restore', [ActivitiesController::class, 'restore'])
+    ->name('activities.restore')
     ->middleware('auth');
 
 // Reports
