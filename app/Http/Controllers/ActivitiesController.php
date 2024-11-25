@@ -26,8 +26,8 @@ class ActivitiesController extends Controller
                 ->through(fn($activity) => [
                     'id' => $activity->id,
                     'name' => $activity->name,
-                    'phone' => $activity->phone,
-                    'city' => $activity->city,
+                    'subjects' => $activity->subjects,
+                    'description' => $activity->description,
                     'deleted_at' => $activity->deleted_at,
                     'group' => $activity->group ? $activity->group->only('name') : null,
                 ]),
@@ -37,7 +37,7 @@ class ActivitiesController extends Controller
     public function create(): Response
     {
         return Inertia::render('Activities/Create', [
-            'groups' => Auth::user()->school
+            'groups' => Auth::user()
                 ->groups()
                 ->orderBy('name')
                 ->get()
@@ -48,20 +48,13 @@ class ActivitiesController extends Controller
 
     public function store(): RedirectResponse
     {
-        Auth::user()->school->activities()->create(
+        Auth::user()->activities()->create(
             Request::validate([
-                'first_name' => ['required', 'max:50'],
-                'last_name' => ['required', 'max:50'],
-                'group_id' => ['nullable', Rule::exists('groups', 'id')->where(function ($query) {
-                    $query->where('school_id', Auth::user()->school_id);
-                })],
-                'email' => ['nullable', 'max:50', 'email'],
-                'phone' => ['nullable', 'max:50'],
-                'address' => ['nullable', 'max:150'],
-                'city' => ['nullable', 'max:50'],
-                'region' => ['nullable', 'max:50'],
-                'country' => ['nullable', 'max:2'],
-                'postal_code' => ['nullable', 'max:25'],
+                'subjects' => ['required', 'max:50'],
+                'description' => ['required', 'max:255'],
+                'start_date' => ['required', 'date'],
+                'end_date' => ['required', 'date', 'after_or_equal:start_date'],
+                'group_id' => ['required', Rule::exists('groups', 'id')],              
             ])
         );
 
@@ -73,19 +66,14 @@ class ActivitiesController extends Controller
         return Inertia::render('Activities/Edit', [
             'activity' => [
                 'id' => $activity->id,
-                'first_name' => $activity->first_name,
-                'last_name' => $activity->last_name,
+                'subjects' => $activity->subjects,
+                'description' => $activity->description,
+                'start_date' => $activity->start_date,
+                'end_date' => $activity->end_date,
                 'group_id' => $activity->group_id,
-                'email' => $activity->email,
-                'phone' => $activity->phone,
-                'address' => $activity->address,
-                'city' => $activity->city,
-                'region' => $activity->region,
-                'country' => $activity->country,
-                'postal_code' => $activity->postal_code,
                 'deleted_at' => $activity->deleted_at,
             ],
-            'groups' => Auth::user()->school->groups()
+            'groups' => Auth::user()->groups()
                 ->orderBy('name')
                 ->get()
                 ->map
@@ -97,19 +85,14 @@ class ActivitiesController extends Controller
     {
         $activity->update(
             Request::validate([
-                'first_name' => ['required', 'max:50'],
-                'last_name' => ['required', 'max:50'],
+                'subjects' => ['required', 'max:50'],
+                'description' => ['required', 'max:255'],
+                'start_date' => ['required', 'date'],
+                'end_date' => ['required', 'date', 'after_or_equal:start_date'],
                 'group_id' => [
                     'nullable',
-                    Rule::exists('groups', 'id')->where(fn($query) => $query->where('school_id', Auth::user()->school_id)),
+                    Rule::exists('groups', 'id'),
                 ],
-                'email' => ['nullable', 'max:50', 'email'],
-                'phone' => ['nullable', 'max:50'],
-                'address' => ['nullable', 'max:150'],
-                'city' => ['nullable', 'max:50'],
-                'region' => ['nullable', 'max:50'],
-                'country' => ['nullable', 'max:2'],
-                'postal_code' => ['nullable', 'max:25'],
             ])
         );
 

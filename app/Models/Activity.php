@@ -12,6 +12,14 @@ class Activity extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'subjects',
+        'description',
+        'start_date',
+        'end_date',
+        'group_id',
+    ];
+
     public function resolveRouteBinding($value, $field = null)
     {
         return $this->where($field ?? 'id', $value)->withTrashed()->firstOrFail();

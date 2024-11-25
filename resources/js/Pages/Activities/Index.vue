@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <Head title="Activities" />
     <h1 class="mb-8 text-3xl font-bold">Activities</h1>
     <div class="flex items-center justify-between mb-6">
@@ -12,8 +13,8 @@
         </select>
       </search-filter>
       <Link class="btn-indigo" href="/activities/create">
-        <span>Create</span>
-        <span class="hidden md:inline">&nbsp;Activity</span>
+      <span>Create</span>
+      <span class="hidden md:inline">&nbsp;Activity</span>
       </Link>
     </div>
     <div class="bg-white rounded-md shadow overflow-x-auto">
@@ -21,36 +22,31 @@
         <tr class="text-left font-bold">
           <th class="pb-4 pt-6 px-6">Name</th>
           <th class="pb-4 pt-6 px-6">Group</th>
-          <th class="pb-4 pt-6 px-6">City</th>
-          <th class="pb-4 pt-6 px-6" colspan="2">Phone</th>
+          <th class="pb-4 pt-6 px-6">Materia(s)</th>
         </tr>
         <tr v-for="activity in activities.data" :key="activity.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
             <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/activities/${activity.id}/edit`">
-              {{ activity.name }}
-              <icon v-if="activity.deleted_at" name="trash" class="shrink-0 ml-2 w-3 h-3 fill-gray-400" />
+            {{ activity.name }}
+            <icon v-if="activity.deleted_at" name="trash" class="shrink-0 ml-2 w-3 h-3 fill-gray-400" />
             </Link>
           </td>
           <td class="border-t">
             <Link class="flex items-center px-6 py-4" :href="`/activities/${activity.id}/edit`" tabindex="-1">
-              <div v-if="activity.group">
-                {{ activity.group.name }}
-              </div>
+            <div v-if="activity.group">
+              {{ activity.group.name }}
+            </div>
             </Link>
           </td>
           <td class="border-t">
             <Link class="flex items-center px-6 py-4" :href="`/activities/${activity.id}/edit`" tabindex="-1">
-              {{ activity.city }}
+            {{ activity.subjects }}
             </Link>
           </td>
-          <td class="border-t">
-            <Link class="flex items-center px-6 py-4" :href="`/activities/${activity.id}/edit`" tabindex="-1">
-              {{ activity.phone }}
-            </Link>
-          </td>
+
           <td class="w-px border-t">
             <Link class="flex items-center px-4" :href="`/activities/${activity.id}/edit`" tabindex="-1">
-              <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
+            <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
             </Link>
           </td>
         </tr>
