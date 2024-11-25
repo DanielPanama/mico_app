@@ -16,7 +16,7 @@ class OrganizationsController extends Controller
     {
         return Inertia::render('Organizations/Index', [
             'filters' => Request::all('search', 'trashed'),
-            'organizations' => Auth::user()->account->organizations()
+            'organizations' => Auth::user()->school->organizations()
                 ->orderBy('name')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate(10)
@@ -38,7 +38,7 @@ class OrganizationsController extends Controller
 
     public function store(): RedirectResponse
     {
-        Auth::user()->account->organizations()->create(
+        Auth::user()->school->organizations()->create(
             Request::validate([
                 'name' => ['required', 'max:100'],
                 'email' => ['nullable', 'max:50', 'email'],

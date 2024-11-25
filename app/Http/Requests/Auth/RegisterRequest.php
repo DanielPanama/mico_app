@@ -30,6 +30,7 @@ class RegisterRequest extends FormRequest
             'last_name' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'school_id' => 'required|integer|exists:schools,id',
         ];
     }
 
@@ -49,6 +50,7 @@ class RegisterRequest extends FormRequest
             'last_name' => $this->input('last_name'),
             'email' => $this->input('email'),
             'password' => bcrypt($this->input('password')), // Encriptar la contraseña
+            'school_id' => $this->input('school_id'),
         ]);
 
         // Opcional: Autenticar al usuario recién registrado

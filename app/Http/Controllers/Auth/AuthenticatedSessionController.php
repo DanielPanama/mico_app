@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\School;
 use App\Providers\AppServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,7 +40,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function register(): Response
     {
-        return Inertia::render('Auth/Register');
+        $schools = School::all();
+        return Inertia::render('Auth/Register', [
+            'schools' => $schools, // Envíalo al componente Vue
+        ]);
     }
 
     /**

@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('account_id')->index()->nullable();
+            $table->id();
+            $table->unsignedBigInteger('school_id'); // Declarar el campo para la llave foránea
+            $table->foreign('school_id')            // Definir la relación con la tabla `schools`
+            ->references('id')                // Apunta al campo `id` de la tabla `schools`
+            ->on('schools')                   // Tabla referenciada
+            ->onDelete('cascade');            // Acción a realizar en cascada al eliminar un registro de la tabla referenciada
+
             $table->string('first_name', 25);
             $table->string('last_name', 25);
             $table->string('email', 50)->unique();

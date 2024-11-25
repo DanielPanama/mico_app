@@ -24,7 +24,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'account_id',
+        'school_id',
     ];
 
     /**
@@ -55,9 +55,9 @@ class User extends Authenticatable
         return $this->where($field ?? 'id', $value)->withTrashed()->firstOrFail();
     }
 
-    public function account(): BelongsTo
+    public function school(): BelongsTo
     {
-        return $this->belongsTo(Account::class);
+        return $this->belongsTo(School::class);
     }
 
     public function getNameAttribute()
