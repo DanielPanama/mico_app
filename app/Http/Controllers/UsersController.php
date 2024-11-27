@@ -23,7 +23,7 @@ class UsersController extends Controller
                 ->orderByName()
                 ->filter(Request::only('search', 'role', 'trashed'))
                 ->get()
-                ->transform(fn ($user) => [
+                ->transform(fn($user) => [
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
@@ -59,7 +59,7 @@ class UsersController extends Controller
             'photo_path' => Request::file('photo') ? Request::file('photo')->store('users') : null,
         ]);
 
-        return Redirect::route('users')->with('success', 'User created.');
+        return Redirect::route('users')->with('success', 'Usuario creado.');
     }
 
     public function edit(User $user): Response
@@ -102,24 +102,24 @@ class UsersController extends Controller
             $user->update(['password' => Request::get('password')]);
         }
 
-        return Redirect::back()->with('success', 'User updated.');
+        return Redirect::back()->with('success', 'Usuario actuaizado.');
     }
 
     public function destroy(User $user): RedirectResponse
     {
         if (App::environment('demo') && $user->isDemoUser()) {
-            return Redirect::back()->with('error', 'Deleting the demo user is not allowed.');
+            return Redirect::back()->with('error', 'No se puede eliminar el usuario demo');
         }
 
         $user->delete();
 
-        return Redirect::back()->with('success', 'User deleted.');
+        return Redirect::back()->with('success', 'Usuario eliminado.');
     }
 
     public function restore(User $user): RedirectResponse
     {
         $user->restore();
 
-        return Redirect::back()->with('success', 'User restored.');
+        return Redirect::back()->with('success', 'Usuario restaurado.');
     }
 }

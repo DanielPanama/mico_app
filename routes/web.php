@@ -145,9 +145,9 @@ Route::put('activities/{activity}/restore', [ActivitiesController::class, 'resto
 
 // Reports
 
-Route::get('reports', [ReportsController::class, 'index'])
-    ->name('reports')
-    ->middleware('auth');
+Route::get('actividades/{code}', [ReportsController::class, 'index'])
+    ->name('actividades')
+    ->middleware('guest');
 
 // Images
 

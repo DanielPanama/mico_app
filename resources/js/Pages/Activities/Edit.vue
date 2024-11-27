@@ -24,7 +24,7 @@
             label="Fecha de inicio" />
           <text-input v-model="form.end_date" type="date" :error="form.errors.end_date" class="pb-8 pr-6 w-full"
             label="Fecha de fin" />
-         
+
         </div>
         <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
           <button v-if="!activity.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button"

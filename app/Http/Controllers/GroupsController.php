@@ -56,7 +56,7 @@ class GroupsController extends Controller
         // Crear el grupo
         Auth::user()->groups()->create($data);
 
-        return Redirect::route('groups')->with('success', 'Group created.');
+        return Redirect::route('groups')->with('success', 'Grupo creado.');
     }
 
     public function edit(Group $group): Response
@@ -66,6 +66,7 @@ class GroupsController extends Controller
                 'id' => $group->id,
                 'name' => $group->name,
                 'period' => $group->period,
+                'code' => $group->code,
                 'deleted_at' => $group->deleted_at,
                 'activities' => $group->activities()->orderByName()->get()->map->only('id', 'description', 'start_date', 'end_date'),
             ],
@@ -87,20 +88,20 @@ class GroupsController extends Controller
             ])
         );
 
-        return Redirect::back()->with('success', 'Group updated.');
+        return Redirect::back()->with('success', 'Grupo actualizado.');
     }
 
     public function destroy(Group $group): RedirectResponse
     {
         $group->delete();
 
-        return Redirect::back()->with('success', 'Group deleted.');
+        return Redirect::back()->with('success', 'Grupo eliminado.');
     }
 
     public function restore(Group $group): RedirectResponse
     {
         $group->restore();
 
-        return Redirect::back()->with('success', 'Group restored.');
+        return Redirect::back()->with('success', 'Grupo restaurado.');
     }
 }

@@ -12,40 +12,41 @@
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="update">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-          <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full " label="Name" />
+          <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full " label="Nombre" />
           <text-input v-model="form.period" :error="form.errors.period" class="pb-8 pr-6 w-full " label="Periodo" />
+          <text-input v-model="form.code"  class="pb-8 pr-6 w-full " label="Código" />
         </div>
         <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
           <button v-if="!group.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button"
-            @click="destroy">Delete Group</button>
+            @click="destroy">Borrar grupo</button>
           <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit">Actualizar
             Grupo</loading-button>
         </div>
       </form>
     </div>
-    <h2 class="mt-12 text-2xl font-bold">Activities</h2>
+    <h2 class="mt-12 text-2xl font-bold">Actividades</h2>
     <div class="mt-6 bg-white rounded shadow overflow-x-auto">
       <table class="w-full whitespace-nowrap">
         <tr class="text-left font-bold">
-          <th class="pb-4 pt-6 px-6">Name</th>
-          <th class="pb-4 pt-6 px-6">City</th>
-          <th class="pb-4 pt-6 px-6" colspan="2">Phone</th>
+          <th class="pb-4 pt-6 px-6">Tarea</th>
+          <th class="pb-4 pt-6 px-6">Inicio</th>
+          <th class="pb-4 pt-6 px-6" colspan="2">Fin</th>
         </tr>
         <tr v-for="activity in group.activities" :key="activity.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
             <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/activities/${activity.id}/edit`">
-            {{ activity.name }}
+            {{ activity.description }}
             <icon v-if="activity.deleted_at" name="trash" class="shrink-0 ml-2 w-3 h-3 fill-gray-400" />
             </Link>
           </td>
           <td class="border-t">
             <Link class="flex items-center px-6 py-4" :href="`/activities/${activity.id}/edit`" tabindex="-1">
-            {{ activity.city }}
+            {{ activity.start_date }}
             </Link>
           </td>
           <td class="border-t">
             <Link class="flex items-center px-6 py-4" :href="`/activities/${activity.id}/edit`" tabindex="-1">
-            {{ activity.phone }}
+            {{ activity.end_date }}
             </Link>
           </td>
           <td class="w-px border-t">
@@ -91,6 +92,7 @@ export default {
       form: this.$inertia.form({
         name: this.group.name,
         period: this.group.period,
+        code: this.group.code,
       }),
     }
   },

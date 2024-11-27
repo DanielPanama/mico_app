@@ -2,7 +2,7 @@
   <div>
 
     <Head title="Activities" />
-    <h1 class="mb-8 text-3xl font-bold">Activities</h1>
+    <h1 class="mb-8 text-3xl font-bold">Actividades</h1>
     <div class="flex items-center justify-between mb-6">
       <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset">
         <label class="block text-gray-700">Trashed:</label>
@@ -20,8 +20,8 @@
     <div class="bg-white rounded-md shadow overflow-x-auto">
       <table class="w-full whitespace-nowrap">
         <tr class="text-left font-bold">
-          <th class="pb-4 pt-6 px-6">Name</th>
-          <th class="pb-4 pt-6 px-6">Group</th>
+          <th class="pb-4 pt-6 px-6">Nombre</th>
+          <th class="pb-4 pt-6 px-6">Grupo</th>
           <th class="pb-4 pt-6 px-6">Materia(s)</th>
         </tr>
         <tr v-for="activity in activities.data" :key="activity.id" class="hover:bg-gray-100 focus-within:bg-gray-100">

@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Head title="Reports" />
+
     <h1 class="mb-8 text-3xl font-bold">Reports</h1>
+    <pre>{{ group }}</pre>
   </div>
 </template>
 
@@ -14,5 +15,9 @@ export default {
     Head,
   },
   layout: Layout,
+  props: {
+    group: Object,
+    activities: Object,
+  },
 }
 </script>

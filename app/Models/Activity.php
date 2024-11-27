@@ -30,6 +30,11 @@ class Activity extends Model
         return $this->belongsTo(Group::class);
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function getNameAttribute()
     {
         return $this->subjects;

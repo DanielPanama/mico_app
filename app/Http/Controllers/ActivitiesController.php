@@ -58,7 +58,7 @@ class ActivitiesController extends Controller
             ])
         );
 
-        return Redirect::route('activities')->with('success', 'Activity created.');
+        return Redirect::route('activities')->with('success', 'Actividad creada.');
     }
 
     public function edit(Activity $activity): Response
@@ -96,20 +96,20 @@ class ActivitiesController extends Controller
             ])
         );
 
-        return Redirect::back()->with('success', 'Activity updated.');
+        return Redirect::back()->with('success', 'Actividad actualizada');
     }
 
     public function destroy(Activity $activity): RedirectResponse
     {
         $activity->delete();
 
-        return Redirect::back()->with('success', 'Activity deleted.');
+        return Redirect::back()->with('success', 'Actividad eliminada.');
     }
 
     public function restore(Activity $activity): RedirectResponse
     {
         $activity->restore();
 
-        return Redirect::back()->with('success', 'Activity restored.');
+        return Redirect::back()->with('success', 'Actividades restauradas.');
     }
 }
